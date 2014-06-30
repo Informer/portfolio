@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- titles and metadata -->
+	<title>Code Viewer</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content="Home View" />
+	
+	<!-- CSS -->
+
+	<link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="style.css" media="all" /> 
+	<link rel="stylesheet" type="text/css" href="css/codePage.css" media="all" />
+	
+	<link rel="stylesheet" href="css/prism.css">
+	<link rel="stylesheet" href="css/prism-line-numbers.css"  />
+	
+	<!-- Javascript -->
+	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="js/kickstart.js"></script>
+	<script type="text/javascript" src="js/modernizr.custom.79639.js"></script>
+	<script src="js/prism.js"></script>
+	<script src="js/prism-line-numbers.js"></script>
+	
+	<!-- <script type="text/javascript" src="js/dayTime.js"></script> -->
+</head>
+
+<body>
+
+	
+	<section id="ps-container" class="ps-container">
+		
+			
+			
+			<div class="ps-header">
+			
+				<h1>Code Snippet Viewer</h1>
+					<div class="logoA">
+
+						<a href="index.html"><img src="img/logo.png" class="logo col_2"/></a>
+						<h5 class="headr">James Heffernan</h5>
+						<h6 class="headr2">Multimedia Developer/Designer</h6>
+					</div>
+			</div><!-- /ps-header -->
+			
+			<div class="ps-contentwrapper">
+			
+				<div class="ps-content codeT">
+					
+					<h2>Location Finder</h2>
+					<p>code snippet from Scio that finds location</p>
+					
+				</div>
+				
+				<div class="ps-content codeT">
+					<!-- <div class="snippet">
+						<p>This will be the code viewer.<br>ie
+							what the code does.</p>
+					</div> -->
+					<h2>Reverse Geo Code</h2>
+					<p>Code snippet from Scio</p>
+					
+				</div>
+				
+				
+				
+			</div><!-- /ps-contentwrapper -->
+			
+			<div class="ps-slidewrapper">
+			
+				<div class="ps-slides ">
+					<div class="codeBlock">
+						<pre class="line-numbers"><code class="language-java">
+	
+locM = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+gps_isOn = locM.isProviderEnabled(LocationManager.GPS_PROVIDER); network_isOn = locM.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+if(!gps_isOn && !network_isOn){
+Context context = getApplicationContext();
+
+nt duration = Toast.LENGTH_SHORT;
+Toast toast = Toast.makeText(context, "nothing is enabled", duration); toast.show();
+
+/*TODO maybe in the unlikely event that the user is in a dead-zone we could transport them to a new activity were they must input their location*/
+}
+
+if(gps_isOn)
+locM.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,locationListenerGps);
+
+if(network_isOn)
+locM.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListenerNet);
+??
+Line numbers
+
+
+
+						</pre></code>
+					</div>
+
+					<div class="codeBlock">
+						<pre class="line-numbers"><code class="language-java">
+	
+/*
+* Now that we have the users location we need to reverse geoCode it to arrive at a String name instead * of double coordinates.
+* */
+Context context = getApplicationContext(); Geocoder geoC = new Geocoder(context);
+if(geoC.isPresent()){ //TODO
+}
+Code Examples
+￼Reverse Geo Code
+List<Address> list; try {
+list = geoC.getFromLocation(locLat, locLong,1); Address address = list.get(0);
+strB.append("Country: "+ address.getCountryName() + "\n"); // as I said we "could" try and obtain more exact location data. // strB.append("Name: "+ address.getLocality() + "\n");
+} catch (IOException e) {
+// TODO Auto-generated catch block e.printStackTrace();
+}// double latitude,double longitude, 1= max results usrCountry = strB.toString();
+/*
+* To test location is working we will set a "mock location" using the mocklocation method * */
+
+
+						</pre></code>
+					</div>
+					
+				</div>
+				<div class="hider">
+				</div>	
+				<nav>
+					<a href="#" class="ps-prev" ></a>
+					<a href="#" class="ps-next" ></a>
+				</nav>
+				
+			</div><!-- /ps-slidewrapper -->
+			
+		</section><!-- /ps-container -->
+			
+		<!-- jQuery if needed -->
+       
+		
+<script type="text/javascript" src="js/slider.js"></script>	
+<script type="text/javascript">
+			$(function() {
+
+				Slider.init();
+			
+			});
+		</script>
+
+		
+</body>
+</html>

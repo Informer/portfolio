@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- titles and metadata -->
+	<title>Design</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description" content="Home View" />
+	
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/magnific-popup.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css" media="all" /> 
+	<link rel="stylesheet" type="text/css" href="css/desstyle.css" media="all" />
+
+
+	
+	<!-- Javascript -->
+	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="js/kickstart.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/0.9.9/jquery.magnific-popup.min.js"></script>
+	<!-- <script type="text/javascript" src="js/dayTime.js"></script> -->
+</head>
+
+<body>
+<div class="grid">
+	<div class="col_12 container"><!-- full container -->
+
+		<div class="col_12 spacerM"></div>
+
+		<div class="title">
+			
+		</div>	
+		<header>
+			<a href="index.html"><img src="img/logo.png" class="logo col_2"/></a>
+			<h5 class="col_8 headr">James Heffernan</h5>
+
+			<h6 class="col_8 headr2">Multimedia Developer/Designer</h6>
+			<div class="desP col_2"><h3 class=" ">Design Portfolio</h3></div>
+
+		</header>	
+		
+		
+
+	<div id="content" class="content-area clearfix">
+		<div id="portfolio" class="portfolio-area clearfix">		
+		<script id="portfolio-template" type="text/x-handlebars-template">
+		<ul class="portfolio-list clearfix">
+			{{#each projects}}
+			<li class="portfolio-item">
+				<div class="portfolio-content">
+					<figure class="portfolio-cover" title="{{this.name}}" data-project-id="{{this.id}}">
+						{{#if this.covers.[404]}}
+						<img class="portfolio-image" src="{{this.covers.[404]}}" alt="">
+						{{else}}
+							{{#if this.covers.[230]}}
+							<img class="portfolio-image" src="{{this.covers.[230]}}" alt="">
+							{{else}}
+							<img class="portfolio-image" src="{{this.covers.[202]}}" alt="">
+							{{/if}}
+						{{/if}}
+					</figure>
+					<h2 class="portfolio-title">{{this.name}}</h2>
+					<div class="portfolio-fields">
+						<ul class="field-list">
+						{{#each this.fields}}
+							<li class="field-item">{{this}}</li>
+						{{/each}}
+						</ul>
+					</div>
+				</div>
+			</li>
+			{{/each}}
+		</ul>
+		</script>
+		</div>
+	</div>
+	
+	
+
+</div> <!-- End Grid -->
+	
+		<div id="footer">
+		
+			<p>Thumbnails Powered by behance</p>
+			<a class="power-logo fi-social-behance" href="http://www.behance.net/jheff" title="Behance" target="_blank"></a>
+			
+			
+		</div>
+		
+		<script>
+$(document).ready(function() {
+
+		var apiKey  = 'O2lYPrCcHB0GRjVW6aXGZnnzYyoo2ale';
+		var userID  = 'JHeff';
+
+	
+
+		(function() {
+			var perPage = 12;
+			var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage;
+
+			function setPortfolioTemplate() {
+				var projectData = JSON.parse(sessionStorage.getItem('behanceProject')),
+					getTemplate = $('#portfolio-template').html(),
+					template    = Handlebars.compile(getTemplate),
+					result      = template(projectData);
+				$('#portfolio').html(result);
+			};
+
+			if(sessionStorage.getItem('behanceProject')) {
+				setPortfolioTemplate();
+			} else {
+				$.getJSON(behanceProjectAPI, function(project) {
+					var data = JSON.stringify(project);
+					sessionStorage.setItem('behanceProject', data);
+					setPortfolioTemplate();
+				});
+			};
+		})();
+
+		$('#portfolio').on('click', '.portfolio-cover', function() {
+			var $this =	$(this),
+				projectID = $this.data('project-id'),
+				beProjectContentAPI = 'http://www.behance.net/v2/projects/'+ projectID +'?callback=?&api_key=' + apiKey,
+				keyName = 'behanceProjectImages-' + projectID;
+
+			function showGallery(dataSource) {	
+				$this.magnificPopup({
+					items: dataSource,
+					gallery: {
+						enabled: true
+					},
+					type: 'image',
+					mainClass: 'animated',
+					removalDelay: 350
+				}).magnificPopup('open');
+			};
+
+			if(localStorage.getItem(keyName)) {
+				var srcItems = JSON.parse(localStorage.getItem(keyName));
+				showGallery(srcItems);
+			} else {
+				$.getJSON(beProjectContentAPI, function(projectContent) {
+					var src = [];
+					$.each(projectContent.project.modules, function(index, mod) {
+						if(mod.src != undefined) {
+							src.push({ src: mod.src });	
+						}
+					});
+					showGallery(src);
+					var data = JSON.stringify(src);
+					localStorage.setItem(keyName, data);
+				});
+			};
+		});
+	});
+	</script>
+		
+</body>
+</html>
+<!-- notes -->
+<!-- I think it would be cool if the landing image changed based on the time of day. And if they moved.. so animated gifs.
+
+Also if we are going to change the image based on the time of day why not changed the theme too so It appears to the user that the website is tailored the best viewing for each time. ie no bright colors late in the evening etc. -->
