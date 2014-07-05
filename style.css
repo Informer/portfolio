@@ -355,6 +355,7 @@ header ul{
 	
 	list-style:none;
 	text-decoration: none;
+	margin-left: 12em;
 	
 }
 
@@ -363,7 +364,7 @@ header ul li{
 	color:#9B9B9B;
 	
 	float:left;
-	margin-left: 12em;
+	margin-left: 2em;
 	text-decoration: none;
 }
 
