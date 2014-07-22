@@ -387,6 +387,7 @@ header ul li a:hover{
 	left: 50%;
 	background-color: #000;
 	background: url(https://dl.dropboxusercontent.com/s/n17rp0osugtig0o/Preloader_4.gif);
+	-webkit-transition: width 0.5s ease-out;
 
 	}
 	
