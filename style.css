@@ -377,3 +377,6 @@ header ul li a:hover{
 	color:#11EEAA;
 	text-decoration: none;
 }
+.loadie { 
+	z-index: 9999; 
+	}
