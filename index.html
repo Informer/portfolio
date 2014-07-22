@@ -28,7 +28,7 @@
 			
 		</div>	
 		<header>
-			<a href="index.html"><img src="https://dl.dropboxusercontent.com/s/lxun7k4eph0wkc1/HLogo.png" class="logo col_2"/></a>
+			<a href="index.html"><img src="https://dl.dropboxusercontent.com/s/lxun7k4eph0wkc1/HLogo.png" class="logo col_2 loaded-image"/></a>
 			<h5 class="col_8 headr">James Heffernan</h5>
 			<h6 class="col_8 headr2">Multimedia Developer/Designer</h6>
 
@@ -41,7 +41,7 @@
 		</header>	
 		<span class="row spacerB col_12"></span>
 		<div class="col_12 banner">
-			<img src="./img/bannerFill3.jpg"/>
+			<img src="./img/bannerFill3.jpg" class="loaded-image"/>
 		</div>
 
 		<div class="col_12 center mid">
@@ -55,7 +55,7 @@
 
 		 <a href="design.html"><div class="col_4 myStuff">
 				<div class="thumb">
-				<i><img src="img/desThumb.png"/></i>
+				<i><img src="img/desThumb.png" class="loaded-image"/></i>
 				<div>
 					<div>
 						<h3>Design
@@ -68,7 +68,7 @@
 
 		 <a href="codeMain.html"><div class="col_4 myStuff">
 				<div class="thumb">
-				<i><img src="img/code.png"/></i>
+				<i><img src="img/code.png" class="loaded-image"/></i>
 				<div>
 					<div>
 						<h3>Code Snippets
@@ -81,7 +81,7 @@
 		
 		<a href="3d.html"><div class="col_4 myStuff">
 				<div class="thumb">
-				<i><img src="img/3dThumb.png"/></i>
+				<i><img src="img/3dThumb.png" class="loaded-image"/></i>
 				<div>
 					<div>
 						<h3>3D / VFX
@@ -94,7 +94,7 @@
 
 		<a href="webdev.html"><div class="col_4 myStuff">
 				<div class="thumb">
-				<i><img src="img/webThumb.png"/></i>
+				<i><img src="img/webThumb.png" class="loaded-image"/></i>
 				<div>
 					<div>
 						<h3>Web / App Development
@@ -107,7 +107,7 @@
 
 		<a href="sound.html"><div class="col_4 myStuff">
 				<div class="thumb">
-				<i><img src="img/sound.png"/></i>
+				<i><img src="img/sound.png" class="loaded-image"/></i>
 				<div>
 					<div>
 						<h3>Sound Design
@@ -120,7 +120,7 @@
 
 		<a href="gameDev.html"><div class="col_4 myStuff">
 				<div class="thumb">
-				<i><img src="img/gameThumb.png"/></i>
+				<i><img src="img/gameThumb.png" class="loaded-image"/></i>
 				<div>
 					<div>
 						<h3>Game Development
@@ -160,12 +160,20 @@
 			
 			
 		</div>
-		<script>
-			$('body').loadie();
-			var percent = 0.74;
-			$('body').loadie(percent); // Insert your percent as params.
-			
-		</script>
+		
+	<script>
+	$(function() {
+		var totalImages = $(".loaded-image").size();
+		var imagesLoaded = 0;
+		$('body').loadie();
+		$(".loaded-image").bind("load", function(){
+      $(this).show();
+
+      imagesLoaded++;
+      $('body').loadie(imagesLoaded / totalImages);
+    });
+	})
+	</script>
 		
 </body>
 </html>
